@@ -1,0 +1,51 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "sublime-text",
+  "title": "Sublime Text",
+  "description": "Sublime Text Project Manager",
+  "icon": "Sublime Text.png",
+  "author": "TheSecEng",
+  "categories": [
+    "Productivity"
+  ],
+  "license": "MIT",
+  "preferences": [
+    {
+      "name": "project_location",
+      "type": "textfield",
+      "title": "Sublime Text Project Location",
+      "placeholder": "Folder path to sublime text projects",
+      "required": true,
+      "default": "",
+      "description": "Location of your sublime text projects"
+    }
+  ],
+  "commands": [
+    {
+      "name": "index",
+      "title": "Sublime Text Projects",
+      "description": "Sublime Text Porject Manager",
+      "mode": "view"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.41.0"
+  },
+  "devDependencies": {
+    "@types/node": "16.10.3",
+    "@types/react": "18.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.4.3"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint",
+    "publish": "ray publish"
+  }
+}

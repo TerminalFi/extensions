@@ -3,7 +3,7 @@
   "name": "sublime-text",
   "title": "Sublime Text",
   "description": "Sublime Text Project Manager",
-  "icon": "Sublime Text.png",
+  "icon": "sublime-text.png",
   "author": "TheSecEng",
   "categories": [
     "Productivity"

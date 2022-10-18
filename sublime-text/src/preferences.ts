@@ -1,7 +1,7 @@
-import { getPreferenceValues } from "@raycast/api";
+import { getPreferenceValues } from '@raycast/api';
 
 interface Preferences {
-  project_location: string;
+  locations: string;
 }
 
 export const getPreferences = (): Preferences => {

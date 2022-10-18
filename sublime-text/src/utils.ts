@@ -1,10 +1,10 @@
-import { showToast, Toast } from "@raycast/api";
-import { sync as find } from "fast-glob";
-import { homedir } from "os";
-import { parse as parsePath } from "path";
-import { useEffect, useState } from "react";
-import { getPreferences } from "./preferences";
-import path = require("path");
+import { showToast, Toast } from '@raycast/api';
+import { sync as find } from 'fast-glob';
+import { homedir } from 'os';
+import { parse as parsePath } from 'path';
+import { useEffect, useState } from 'react';
+import { getPreferences } from './preferences';
+import path = require('path');
 import Style = Toast.Style;
 
 export interface SublimeTextProject {
@@ -15,7 +15,7 @@ export interface SublimeTextProject {
 }
 
 export const listSublimeProjects = (): SublimeTextProject[] => {
-    const paths = getPreferences().project_location.split(";").map((item) => item.startsWith('~') ? `${path.join(homedir(), item.slice(1))}` : item);
+    const paths = getPreferences().locations.split(';').map((item) => item.startsWith('~') ? `${path.join(homedir(), item.slice(1))}` : item);
     const projects = find(`${paths}/**/*.sublime-project`, { absolute: true });
 
     return projects.map((path) => {
@@ -41,8 +41,7 @@ export const useSublimeProjects = () => {
             const result = listSublimeProjects();
             setProjects(result);
         } catch (error: unknown) {
-            void showToast({ style: Style.Failure, title: "Failed to load projects", message: (error as Error).message });
-            console.error(error);
+            void showToast({ style: Style.Failure, title: 'Failed to load projects', message: (error as Error).message });
         }
     }, []);
 

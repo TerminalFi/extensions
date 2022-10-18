@@ -11,7 +11,7 @@
   "license": "MIT",
   "preferences": [
     {
-      "name": "project_location",
+      "name": "locations",
       "type": "textfield",
       "title": "Sublime Text Project Location",
       "placeholder": "Folder path to sublime text projects",

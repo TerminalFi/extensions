@@ -1,10 +1,10 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "sublime-text",
-  "title": "Sublime Text",
-  "description": "Sublime Text Project Manager",
+  "title": "Sublime Text Project Manager",
+  "description": "Search, open and delete your Sublime Text Projects",
   "icon": "sublime-text.png",
-  "author": "TheSecEng",
+  "author": "TerminalFi",
   "categories": [
     "Productivity"
   ],
@@ -17,14 +17,14 @@
       "placeholder": "Folder path to sublime text projects",
       "required": true,
       "default": "",
-      "description": "Location of your sublime text projects"
+      "description": "Location of your sublime text projects (Multiple paths can be passed by using `;` as a delimiter"
     }
   ],
   "commands": [
     {
       "name": "index",
-      "title": "Sublime Text Projects",
-      "description": "Sublime Text Porject Manager",
+      "title": "Search Projects",
+      "description": "Search and Manage Sublime Text Projects",
       "mode": "view"
     }
   ],

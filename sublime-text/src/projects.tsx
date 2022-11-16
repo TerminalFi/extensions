@@ -1,10 +1,9 @@
 import { Action, ActionPanel, List } from '@raycast/api';
-import { useSublimeProjects } from './utils';
+import { listSublimeProjects } from './utils';
 
 
-export default () => {
-  
-  const [projects] = useSublimeProjects();
+export default (): JSX.Element => {
+  const projects = listSublimeProjects();
   return (
     <List>
       {projects.map((project, index) => (

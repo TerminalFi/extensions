@@ -1,10 +1,13 @@
-import { showToast, Toast, List } from '@raycast/api';
+import { showToast, Toast } from '@raycast/api';
 import { sync as find } from 'fast-glob';
+import fetch from 'node-fetch';
+import { NodeHtmlMarkdown } from 'node-html-markdown';
+import { parse } from 'node-html-parser';
 import { homedir } from 'os';
 import { parse as parsePath } from 'path';
 import { getPreferences } from './preferences';
 import path = require('path');
-import fetch from 'node-fetch';
+
 
 
 export interface SublimeTextProject {
@@ -77,7 +80,6 @@ export interface Link {
   selected: boolean
 }
 
-
 export const returnPackageInfo = async (pkg: string): Promise<Package | null> => {
   try {
     if (pkg != "") {
@@ -99,7 +101,6 @@ export const returnPackageInfo = async (pkg: string): Promise<Package | null> =>
 export const returnPackages = async (searchTerm: string): Promise<Results | null> => {
   try {
     if (searchTerm != "") {
-      console.log(searchTerm)
       const response = await fetch(
         `https://packagecontrol.io/search/${searchTerm}.json`
       );
@@ -147,4 +148,82 @@ export function parseInstallRank(installs_rank: number | null | undefined): numb
     return null
   }
   return installs_rank
+}
+
+export interface SublimeUpdates {
+  updates: Array<Updates>
+}
+export interface Updates {
+  latest_version: number
+  license_lapse_timestamp: number
+  last_license_number_lapsed: number
+  update_url: string
+  manifest_host: string
+  update_host: string
+  manifest_path_osx: string
+  update_path_osx: string
+  manifest_path_windows_x64: string
+  update_path_windows_x64: string
+  manifest_path_windows_x32: string
+  update_path_windows_x32: string
+}
+
+export const returnStableSublimeUpdates = async (): Promise<Updates | null> => {
+  try {
+    const response = await fetch(
+      `https://www.sublimetext.com/updates/4/stable_update_check`
+    );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const json: any = await response.json();
+    return json as Updates;
+  } catch (error) {
+    showToast(Toast.Style.Failure, "An error occured", "Could not fetch sublime updates");
+    return null
+  }
+}
+
+export const returnDevSublimeUpdates = async (): Promise<Updates | null> => {
+  try {
+    const response = await fetch(
+      `https://www.sublimetext.com/updates/4/dev_update_check`
+    );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const json: any = await response.json();
+    return json as Updates;
+  } catch (error) {
+    showToast(Toast.Style.Failure, "An error occured", "Could not fetch sublime updates");
+    return null
+  }
+}
+
+export const returnSublimeUpdates = async (): Promise<SublimeUpdates | null> => {
+  let updates = { updates: [] } as SublimeUpdates;
+  const stable = await returnStableSublimeUpdates();
+  const dev = await returnDevSublimeUpdates();
+
+  if (stable !== null) {
+    updates.updates.push(stable)
+  }
+  if (dev !== null) {
+    updates.updates.push(dev)
+  }
+  return updates
+}
+
+export const returnChangeLog = async (url: string): Promise<string | null> => {
+  try {
+    const response = await fetch(
+      url
+    ).then((response) => {
+      return response.text();
+    }).then((html) => {
+      const doc = parse(html);
+      const changelog = doc.querySelector("#changelog")?.innerHTML;
+      return NodeHtmlMarkdown.translate(changelog !== undefined ? changelog : "");
+    });
+    return response
+  } catch (error) {
+    showToast(Toast.Style.Failure, "An error occured", "Could not fetch sublime updates");
+    return null
+  }
 }

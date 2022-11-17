@@ -1,8 +1,8 @@
-import { List, ActionPanel, Action } from '@raycast/api';
-import { NodeHtmlMarkdown } from 'node-html-markdown'
-import { returnPackages, returnPackageInfo, generateAccessories, Results, Package } from './utils';
+import { Action, ActionPanel, List } from '@raycast/api';
+import { NodeHtmlMarkdown } from 'node-html-markdown';
 import { useState } from "react";
 import { getPreferences } from './preferences';
+import { generateAccessories, Package, Results, returnPackageInfo, returnPackages } from './utils';
 
 export default function PackageList() {
   const [results, setResults] = useState<Results | null>();
@@ -10,7 +10,6 @@ export default function PackageList() {
   const [loading, setLoading] = useState<boolean>(false);
 
   const prefs = getPreferences();
-
   const onSelectionChange = async (id: string | null) => {
     setLoading(true);
     if (id === null) {
@@ -31,10 +30,9 @@ export default function PackageList() {
       return
     }
     await returnPackageInfo(pkg.name).then((response) => {
-      console.log(response)
       setPackageInfo(response)
       setLoading(false);
-    });
+    })
   };
   const onSearchTextChange = async (text: string) => {
     setLoading(true);

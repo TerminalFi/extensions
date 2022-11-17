@@ -40,6 +40,12 @@
             "title": "Search Package Control",
             "description": "Search Project Control for Sublime Text Packages",
             "mode": "view"
+        },
+        {
+            "name": "sublime_update_checker",
+            "title": "Sublime Updates",
+            "description": "See latest Sublime Text updates",
+            "mode": "view"
         }
     ],
     "dependencies": {
@@ -47,6 +53,7 @@
         "axios": "^1.1.3",
         "node-fetch": "^3.2.10",
         "node-html-markdown": "^1.2.2",
+        "node-html-parser": "^6.1.4",
         "turndown": "^7.1.1"
     },
     "devDependencies": {
